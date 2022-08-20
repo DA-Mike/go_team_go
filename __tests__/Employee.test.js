@@ -1,6 +1,6 @@
 const Employee = require('../lib/Employee');
 
-describe('getName', () => {
+describe('Employee', () => {
     it('Employee name should be returned', () => {
       expect(new Employee('Bob', '77', 'bob@bob.com').getName()).toBe('Bob');
     });
