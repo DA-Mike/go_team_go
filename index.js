@@ -2,7 +2,7 @@ const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const template = require('./src/template');
+const generateHTML = require('./src/template');
 const inquirer = require('inquirer');
 const fs = require('fs');
 
@@ -36,7 +36,6 @@ function init() {
         .then(val => {
             team.push(new Manager(val.managerName, val.managerID, val.managerEmail, val.managerOffice));
         })
-        // .then(() => console.log("ManagerInit:", team))
         .then(() => addToTeam());
        
 }
@@ -126,14 +125,8 @@ function addIntern() {
 
 function generatePage(data) {
     console.log("addHTML");
-    generateHTML(data)
-    .then(() => quit());
+    generateHTML(data);
 }
-
-function quit() {
-    console.log("\nGoodbye!");
-    process.exit(0);
-  }
 
 init();
 
