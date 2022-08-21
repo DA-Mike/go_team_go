@@ -10,35 +10,76 @@ const team = [];
 
 //creates manager object
 function init() {
+    newEmployee('Manager');
+}
+
+
+function newEmployee(employee) {
+
+    let valArr = [];
+
     console.log("Welcome to Go Team Go!");
     inquirer
         .prompt([
             {
                 type: 'input',
-                name: 'managerName',
-                message: "What is the Team Manager's name?"
+                name: 'name',
+                message: `What is the ${employee}'s name?`
             },
             {
                 type: 'input',
-                name: 'managerID',
-                message: "What is the Team Manager's employee ID?"
+                name: 'ID',
+                message: `What is the ${employee}'s employee ID?`
             },
             {
                 type: 'input',
-                name: 'managerEmail',
-                message: "What is the Team Manager's email address?"
-            },
-            {
-                type: 'input',
-                name: 'managerOffice',
-                message: "What is the Team Manager's office number?"
+                name: 'email',
+                message: `What is the ${employee}'s email address?`
             }
         ])
-        .then(val => {
-            team.push(new Manager(val.managerName, val.managerID, val.managerEmail, val.managerOffice));
+        .then(val => { 
+            valArr.push(val);
+            if (employee === 'Manager') {
+                inquirer
+                    .prompt([
+                        {
+                            type: 'input',
+                            name: 'details',
+                            message: `What is the ${employee}'s office number?`
+                        }
+                    ])
+                    .then(val => {
+                            team.push(new Manager(valArr[0].name, valArr[0].ID, valArr[0].email, val.details));
+                        })
+                    .then(() => addToTeam());
+            } else if (employee === 'Engineer') {
+                inquirer
+                    .prompt([
+                        {
+                            type: 'input',
+                            name: 'details',
+                            message: `What is the ${employee}'s Github username?`
+                        }
+                    ])
+                    .then(val => {
+                        team.push(new Engineer(valArr[0].name, valArr[0].ID, valArr[0].email, val.details));
+                    })
+                    .then(() => addToTeam());
+            } else {
+                inquirer
+                    .prompt([
+                        {
+                            type: 'input',
+                            name: 'details',
+                            message: `What is the ${employee}'s school?`
+                        }
+                    ])
+                    .then(val => {
+                        team.push(new Intern(valArr[0].name, valArr[0].ID, valArr[0].email, val.details));
+                    })
+                    .then(() => addToTeam());
+            }
         })
-        .then(() => addToTeam());
-       
 }
 
 //this prompt asks the user what they would like to do (ie add employees or generate page)
@@ -53,76 +94,12 @@ function addToTeam() {
             }
         ])
         .then(val => {
-            if (val.choice === 'Engineer') {
-                addEngineer();
-            } else if (val.choice === 'Intern') {
-                addIntern();
+            if (val.choice === 'Engineer' || val.choice === 'Intern') {
+                newEmployee(val.choice);
             } else {
                 generatePage(team);
             }
         })
-}
-
-//adds engineer object
-function addEngineer() {
-    inquirer
-        .prompt([
-            {
-                type: 'input',
-                name: 'engineerName',
-                message: "What is the Engineer's name?"
-            },
-            {
-                type: 'input',
-                name: 'engineerID',
-                message: "What is the Engineer's employee ID?"
-            },
-            {
-                type: 'input',
-                name: 'engineerEmail',
-                message: "What is the Engineer's email address?"
-            },
-            {
-                type: 'input',
-                name: 'engineerGithub',
-                message: "What is the Engineer's Github username?"
-            }
-        ])
-        .then(val => {
-            team.push(new Engineer(val.engineerName, val.engineerID, val.engineerEmail, val.engineerGithub));
-        })
-        .then(() => addToTeam())
-}
-
-//adds intern object
-function addIntern() {
-    inquirer
-        .prompt([
-            {
-                type: 'input',
-                name: 'internName',
-                message: "What is the Intern's name?"
-            },
-            {
-                type: 'input',
-                name: 'internID',
-                message: "What is the Intern's employee ID?"
-            },
-            {
-                type: 'input',
-                name: 'internEmail',
-                message: "What is the Intern's email address?"
-            },
-            {
-                type: 'input',
-                name: 'internSchool',
-                message: "What is the Intern's school?"
-            }
-        ])
-        .then(val => {
-            team.push(new Intern(val.internName, val.internID, val.internEmail, val.internSchool));
-        })
-        .then(() => addToTeam())
 }
 
 //calls to template.js to generate page
