@@ -8,14 +8,14 @@ const inquirer = require('inquirer');
 
 const team = [];
 
-//creates manager object
+//starts app
 function init() {
     newEmployee('Manager');
 }
 
-
+//creates new employee object
 function newEmployee(employee) {
-    
+
     let detail = '';
 
     console.log("Welcome to Go Team Go!");
@@ -89,4 +89,3 @@ function generatePage(data) {
 
 //initializes app
 init();
-
