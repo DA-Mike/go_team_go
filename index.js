@@ -42,7 +42,12 @@ function newEmployee(employee) {
             {
                 type: 'input',
                 name: 'email',
-                message: `What is the ${employee}'s email address?`
+                message: `What is the ${employee}'s email address?`,
+                validate: function(email)
+                {
+                    // Regex mail check (return true if valid mail)
+                    return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+                }
             },
             {
                 type: 'input',
