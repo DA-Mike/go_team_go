@@ -1,34 +1,27 @@
 const fs = require('fs');
 
+//writes html file
 function generateHTML(data) {
         fs.writeFile('./dist/index.html', generateBody(data), (err) =>
         err ? console.error(err) : console.log('Success!'))
-        // addCards(data);
-        // .then(() => addCards(data));
 }
 
-// const generateHTML = (data) => 
-//     fs.writeFile('./dist/index.html', generateBody(data), (err) =>
-//     err ? console.error(err) : console.log('Success!'))
-//     .then(() => addCards(data));
-
-
-
+//generates body of html file
 function generateBody(data) {
-    // console.log("generateBody: ", data);
     return  `<!DOCTYPE html>
                 <html lang="en">
                 <head>
                     <meta charset="UTF-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <script src="https://kit.fontawesome.com/368d8c73a4.js" crossorigin="anonymous"></script>
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
                     <link href="style.css" rel="stylesheet">
                     <title>Go Team Go!</title>
                 </head>
                 <body>
                 <header class="my_team_header bg-danger">
-                    <h1 class="my_team text_white">My Team</h1>
+                    <h1 class="my_team text-white">My Team</h1>
                 </header>
                 <div class="container team_container" style="background-color: white";>
                 ${addCards(data)}
@@ -40,15 +33,15 @@ function generateBody(data) {
                 </html>`
 }
 
+//adds employee cards to html
 function addCards(data) {
-    console.log("addCards: ", data);
     var domStr = '';
     for (i = 0; i < data.length; i++) {
     let newEl = `
         <div class="card_container bg-light">
             <div class="banner_container bg-primary">
             <h2 class="text-white">${data[i].name}</h2>
-            <h3 class="text-white">${data[i].role}</h3> 
+            <h3 class="text-white">${iconFinder(data[i].role)} ${data[i].role}</h3> 
             </div>
             <div class="bg-light">
             <ul class="info_list">
@@ -61,10 +54,21 @@ function addCards(data) {
         `
         domStr = domStr.concat(newEl);
     }
-    console.log('domStr: ', domStr);
     return domStr;
 }
 
+//finds icon for employee based on employee's role
+function iconFinder(data) {
+    if (data === 'Manager') {   
+        return `<i class="fa-solid fa-mug-hot"></i>`;
+    } else if (data === 'Engineer') {
+        return `<i class="fa-solid fa-glasses"></i>`;
+    } else {
+        return `<i class="fa-solid fa-user-graduate"></i>`;
+    }
+}
+
+//adds final line of employee card based on role
 function lastElement(data) {
     if (data.role === 'Manager') {
         return `Office Number: ${data.officeNumber}`;
@@ -75,5 +79,6 @@ function lastElement(data) {
     }
 }
 
+//exports function
 module.exports = generateHTML;
 

@@ -1,13 +1,14 @@
+//imports libraries and classes
 const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const generateHTML = require('./src/template');
 const inquirer = require('inquirer');
-const fs = require('fs');
 
 const team = [];
 
+//creates manager object
 function init() {
     console.log("Welcome to Go Team Go!");
     inquirer
@@ -40,6 +41,7 @@ function init() {
        
 }
 
+//this prompt asks the user what they would like to do (ie add employees or generate page)
 function addToTeam() {
     inquirer
         .prompt([
@@ -61,8 +63,8 @@ function addToTeam() {
         })
 }
 
+//adds engineer object
 function addEngineer() {
-    console.log("addEngineer");
     inquirer
         .prompt([
             {
@@ -83,7 +85,7 @@ function addEngineer() {
             {
                 type: 'input',
                 name: 'engineerGithub',
-                message: "What is the Engineer's Github?"
+                message: "What is the Engineer's Github username?"
             }
         ])
         .then(val => {
@@ -92,8 +94,8 @@ function addEngineer() {
         .then(() => addToTeam())
 }
 
+//adds intern object
 function addIntern() {
-    console.log("addIntern");
     inquirer
         .prompt([
             {
@@ -123,10 +125,11 @@ function addIntern() {
         .then(() => addToTeam())
 }
 
+//calls to template.js to generate page
 function generatePage(data) {
-    console.log("addHTML");
     generateHTML(data);
 }
 
+//initializes app
 init();
 
