@@ -8,37 +8,58 @@ const inquirer = require('inquirer');
 
 const team = [];
 
-//creates manager object
+//starts app
 function init() {
+    newEmployee('Manager');
+}
+
+//creates new employee object
+function newEmployee(employee) {
+
+    let detail = '';
+
     console.log("Welcome to Go Team Go!");
+
+    if (employee === "Manager") {
+        detail = 'office number';
+    } else if (employee === "Engineer") {
+        detail = 'Github username';
+    } else {
+        detail = 'school';
+    }
     inquirer
         .prompt([
             {
                 type: 'input',
-                name: 'managerName',
-                message: "What is the Team Manager's name?"
+                name: 'name',
+                message: `What is the ${employee}'s name?`
             },
             {
                 type: 'input',
-                name: 'managerID',
-                message: "What is the Team Manager's employee ID?"
+                name: 'ID',
+                message: `What is the ${employee}'s employee ID?`
             },
             {
                 type: 'input',
-                name: 'managerEmail',
-                message: "What is the Team Manager's email address?"
+                name: 'email',
+                message: `What is the ${employee}'s email address?`
             },
             {
                 type: 'input',
-                name: 'managerOffice',
-                message: "What is the Team Manager's office number?"
+                name: 'details',
+                message: `What is the ${employee}'s ${detail}?`
             }
         ])
         .then(val => {
-            team.push(new Manager(val.managerName, val.managerID, val.managerEmail, val.managerOffice));
+            if (employee === "Manager") {
+                team.push(new Manager(val.name, val.ID, val.email, val.details));
+            } else if (employee === "Engineer") {
+                team.push(new Engineer(val.name, val.ID, val.email, val.details));
+            } else {
+                team.push(new Intern(val.name, val.ID, val.email, val.details));
+            }
         })
         .then(() => addToTeam());
-       
 }
 
 //this prompt asks the user what they would like to do (ie add employees or generate page)
@@ -53,76 +74,12 @@ function addToTeam() {
             }
         ])
         .then(val => {
-            if (val.choice === 'Engineer') {
-                addEngineer();
-            } else if (val.choice === 'Intern') {
-                addIntern();
+            if (val.choice === 'Engineer' || val.choice === 'Intern') {
+                newEmployee(val.choice);
             } else {
                 generatePage(team);
             }
         })
-}
-
-//adds engineer object
-function addEngineer() {
-    inquirer
-        .prompt([
-            {
-                type: 'input',
-                name: 'engineerName',
-                message: "What is the Engineer's name?"
-            },
-            {
-                type: 'input',
-                name: 'engineerID',
-                message: "What is the Engineer's employee ID?"
-            },
-            {
-                type: 'input',
-                name: 'engineerEmail',
-                message: "What is the Engineer's email address?"
-            },
-            {
-                type: 'input',
-                name: 'engineerGithub',
-                message: "What is the Engineer's Github username?"
-            }
-        ])
-        .then(val => {
-            team.push(new Engineer(val.engineerName, val.engineerID, val.engineerEmail, val.engineerGithub));
-        })
-        .then(() => addToTeam())
-}
-
-//adds intern object
-function addIntern() {
-    inquirer
-        .prompt([
-            {
-                type: 'input',
-                name: 'internName',
-                message: "What is the Intern's name?"
-            },
-            {
-                type: 'input',
-                name: 'internID',
-                message: "What is the Intern's employee ID?"
-            },
-            {
-                type: 'input',
-                name: 'internEmail',
-                message: "What is the Intern's email address?"
-            },
-            {
-                type: 'input',
-                name: 'internSchool',
-                message: "What is the Intern's school?"
-            }
-        ])
-        .then(val => {
-            team.push(new Intern(val.internName, val.internID, val.internEmail, val.internSchool));
-        })
-        .then(() => addToTeam())
 }
 
 //calls to template.js to generate page
@@ -132,4 +89,3 @@ function generatePage(data) {
 
 //initializes app
 init();
-
