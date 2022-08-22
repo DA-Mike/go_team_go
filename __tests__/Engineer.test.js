@@ -17,7 +17,7 @@ describe('Engineer', () => {
         expect(new Engineer('Bob', '77', 'bob@bob.com', 'github.com').getRole()).toBe('Engineer');
     });
 
-    it('Role should be returned', () => {
+    it('Github username should be returned', () => {
         expect(new Engineer('Bob', '77', 'bob@bob.com', 'github.com').getGithub()).toBe('github.com');
     });
 });

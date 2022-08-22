@@ -17,7 +17,7 @@ describe('Intern', () => {
         expect(new Intern('Bob', '77', 'bob@bob.com', 'Cal').getRole()).toBe('Intern');
     });
 
-    it('Role should be returned', () => {
+    it('School should be returned', () => {
         expect(new Intern('Bob', '77', 'bob@bob.com', 'Cal').getSchool()).toBe('Cal');
     });
 });

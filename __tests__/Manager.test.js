@@ -17,7 +17,7 @@ describe('Manager', () => {
         expect(new Manager('Bob', '77', 'bob@bob.com', '01').getRole()).toBe('Manager');
     });
 
-    it('Role should be returned', () => {
+    it('Office number should be returned', () => {
         expect(new Manager('Bob', '77', 'bob@bob.com', '01').getOfficeNumber()).toBe('01');
     });
 });
