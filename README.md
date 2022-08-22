@@ -23,9 +23,11 @@ Simply clone the repo and run node index.js in the terminal
 
 ## Usage
 
-[![Video #2](https://img.youtube.com/vi/OZQnXtEVIYs/0.jpg)](https://youtu.be/OZQnXtEVIYs)
+[![Video #1](https://img.youtube.com/vi/OZQnXtEVIYs/0.jpg)](https://youtu.be/OZQnXtEVIYs)
 
 [![Video #2](https://img.youtube.com/vi/2VywQ-IjNT4/0.jpg)](https://youtu.be/2VywQ-IjNT4)
+
+[![Video #3](https://img.youtube.com/vi/j61UCTBtLHM/0.jpg)](https://youtu.be/j61UCTBtLHM)
 
 ## Contributing
 ### How to Contribute:
